@@ -1,0 +1,295 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task Manager API",
+        "description": "API for managing tasks",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Development Server"
+        }
+    ],
+    "paths": {
+        "/task": {},
+        "/task/create": {
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create a new task",
+                "operationId": "08ce5c2bb51ff6834db06c6697cd7a37",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Task created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid JSON"
+                    },
+                    "422": {
+                        "description": "Missing required fields"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/task/list": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "List all tasks",
+                "operationId": "10e715aacf1cd410f79cd1d6017b7323",
+                "responses": {
+                    "200": {
+                        "description": "List of tasks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Task"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/task/toggle-done": {
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Toggle the done status of a task",
+                "operationId": "63c4d86af5be4d6f304935afd5e615db",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing or invalid ID"
+                    },
+                    "405": {
+                        "description": "Method not allowed"
+                    }
+                }
+            }
+        },
+        "/task/delete": {
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Delete a task by ID",
+                "operationId": "b258e008b0eee3d6b9e1237d55c578d7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task deleted"
+                    },
+                    "400": {
+                        "description": "Missing or invalid ID"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/task/update": {
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update task fields (title, description, dueDate)",
+                "operationId": "a884a6f179c100b2e63ffe09a14563cc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskUpdateInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing or invalid ID"
+                    },
+                    "405": {
+                        "description": "Method not allowed"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TaskInput": {
+                "required": [
+                    "title",
+                    "description",
+                    "due_date"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Finish project"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Write unit tests"
+                    },
+                    "due_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-06-10T18:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskUpdateInput": {
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "New title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Updated description"
+                    },
+                    "due_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-06-15T12:00:00Z"
+                    },
+                    "done": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "Task": {
+                "title": "Task entity",
+                "description": "A task object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Finish report"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Finalize the monthly report"
+                    },
+                    "due_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-06-10T18:00:00"
+                    },
+                    "done": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "set_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-06-01T10:00:00",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Task",
+            "description": "Operations about tasks"
+        }
+    ]
+}

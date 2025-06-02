@@ -1,0 +1,49 @@
+# Ignore OS-related files
+.DS_Store
+Thumbs.db
+
+# Ignore Composer dependencies (only if not using volume share)
+vendor/
+
+# Ignore environment config
+.env
+
+# Ignore MySQL volumes (optional)
+docker/db_data/
+*.sql~
+
+# Ignore PhpStorm settings (user-specific)
+.idea/
+*.iml
+
+# Ignore PHP logs and cache
+*.log
+*.cache
+
+# Ignore runtime cache/temp files
+cache/
+tmp/
+*.tmp
+
+# Ignore Docker artifacts
+docker/*.pid
+docker/logs/
+docker/scripts/*.sh~
+
+# Ignore node_modules if any front-end tooling is used
+node_modules/
+
+# Ignore backup files
+*.bak
+*.swp
+*.swo
+*~
+
+# Ignore coverage/test reports
+coverage/
+phpunit.xml.cache
+.phpunit.result.cache
+
+# Ignore build artifacts
+build/
+dist/

@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      APP_ENV: ${APP_ENV}
+    depends_on:
+      - db
+    volumes:
+      - ./public:/var/www/html/public
+      - ./src:/var/www/html/src
+      - ./vendor:/var/www/html/vendor
+      - ./swagger-ui:/var/www/html/public/swagger-ui
+
+  db:
+    image: mysql:8.0
+    container_name: php_task_db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./sql/seed.sql:/docker-entrypoint-initdb.d/99-seed.sql
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./public/swagger.json:/tmp/swagger-config.json:ro
+    environment:
+      SWAGGER_JSON: /tmp/swagger-config.json
+
+volumes:
+  db_data:

@@ -1,0 +1,9 @@
+CREATE TABLE tasks (
+   ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+   Title VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+   Description TEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+   Due_Date DATETIME NOT NULL,
+   Done TINYINT NOT NULL DEFAULT 0,
+   Set_Date DATETIME NOT NULL,
+   PRIMARY KEY (ID)
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
