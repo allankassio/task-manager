@@ -192,3 +192,77 @@ Below are the main endpoints available for managing tasks:
 - `400`: Missing or invalid ID
 - `405`: Method not allowed
 - `500`: Internal server error  
+
+# TODOs
+
+### Authentication and User Management
+
+- [ ] Implement user registration and login system
+- [ ] Use JWT or session-based authentication
+- [ ] Add middleware to protect endpoints for authenticated users only
+
+### User Accounts and Task Ownership
+
+- [ ] Associate tasks with specific users
+- [ ] Ensure users can only access and modify their own tasks
+- [ ] Add an endpoint to retrieve the current user profile (`/user/me`)
+
+### Notifications and Alerts
+
+- [ ] Implement alerts for tasks nearing their due date
+- [ ] Allow users to set custom reminders (e.g., X minutes/hours/days before due date)
+- [ ] Create a background scheduler or cron to check for upcoming due tasks
+
+### Recurring Tasks
+
+- [ ] Add support for recurring tasks (daily, weekly, monthly)
+- [ ] Automatically generate the next instance of a recurring task after completion
+
+### Task Prioritization
+
+- [ ] Add a `priority` field (e.g., low, medium, high) to tasks
+- [ ] Allow tasks to be sorted and filtered by priority
+
+### Task Tagging and Categorization
+
+- [ ] Add support for tagging tasks with keywords or categories
+- [ ] Add filtering logic to retrieve tasks by specific tag or category
+
+### File Attachments
+
+- [ ] Allow users to upload files (e.g., PDFs, documents) related to a task
+- [ ] Save file metadata and store files in a secure directory or cloud service
+- [ ] Implement download and delete endpoints for task attachments
+
+### Task Sharing and Collaboration
+
+- [ ] Add support for sharing tasks between users
+- [ ] Implement permission levels (e.g., read-only, edit)
+- [ ] Generate public links for shared access with optional expiration
+
+### Task History and Audit Logging
+
+- [ ] Track task changes (title, due date, description, status)
+- [ ] Store a log of updates with timestamps and user IDs
+- [ ] Add an endpoint to retrieve task history
+
+### Completion Feedback and Reflection
+
+- [ ] Store optional feedback or notes after a task is marked as complete
+- [ ] Add support for post-completion status such as rating, notes, or outcome
+
+### Search and Filtering
+
+- [ ] Implement full-text search on task title and description
+- [ ] Allow searching by partial matches and keywords
+
+### Bulk Actions
+
+- [ ] Add bulk delete functionality
+- [ ] Add bulk toggle for completion status
+- [ ] Support multi-task updates via a single API call
+
+### Statistics and Metrics
+
+- [ ] Add an endpoint for aggregated task statistics (e.g., completed vs. pending)
+- [ ] Return historical metrics such as tasks completed per week or month
